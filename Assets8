@@ -1,0 +1,23 @@
+# 🌟 Maga Fruits – Jogo inspirado em Blox Fruits (Roblox)
+
+Bem-vindo ao projeto **Maga Fruits**, um jogo 3D mobile de ação e aventura, inspirado em Blox Fruits, criado com Unity e C#.  
+Este jogo foi projetado para rodar em dispositivos Android com até **1GB de RAM (Android 5.0 - J5 Prime)**.
+
+---
+
+## 🎮 Recursos principais
+
+- 🌊 3 Seas com até 5 ilhas cada
+- 🍉 Frutas com poderes únicos (Light, Flame, Ice, Shadow, Thunder)
+- ✈️ Light Fruit permite voo + tridente para ataque
+- 📦 Baús que reaparecem a cada 1 minuto
+- 🧍 NPCs com roleta de frutas (custo 10.000 a 75.000 moedas)
+- 🗡️ Missões de combate para ganhar XP e moedas
+- 🧠 Sistema de níveis, XP e moedas
+- 🔄 Teletransporte entre ilhas (nível 700+)
+- 🌐 Modo online com versão especial para administrador `adriellu5600`
+- 🦸 Avatar admin com skin inspirada no Superman
+
+---
+
+## ⚙️ Estrutura do Projeto
