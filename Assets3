@@ -1,0 +1,63 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class NPCSystem : MonoBehaviour
+{
+    public enum NPCTipo { Missao, Roleta, Teleporte }
+
+    public NPCTipo tipoNPC;
+    public int nivelMinimo = 0;
+    public int custoRoleta = 10000;
+
+    public Transform destinoTeleporte;
+    public FruitSystem fruitSystem;
+    public Text mensagemUI;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerStats stats = other.GetComponent<PlayerStats>();
+
+            switch (tipoNPC)
+            {
+                case NPCTipo.Missao:
+                    stats.AdicionarMissaoDerrotar();
+                    mensagemUI.text = "Missão iniciada: derrote 10 inimigos!";
+                    break;
+
+                case NPCTipo.Roleta:
+                    if (stats.moedas >= custoRoleta)
+                    {
+                        stats.moedas -= custoRoleta;
+                        SorteiaFruta(stats);
+                        mensagemUI.text = "Fruta sorteada!";
+                    }
+                    else
+                    {
+                        mensagemUI.text = "Moedas insuficientes!";
+                    }
+                    break;
+
+                case NPCTipo.Teleporte:
+                    if (stats.nivel >= nivelMinimo)
+                    {
+                        other.transform.position = destinoTeleporte.position;
+                        mensagemUI.text = "Teletransportado!";
+                    }
+                    else
+                    {
+                        mensagemUI.text = "Você precisa de nível " + nivelMinimo;
+                    }
+                    break;
+            }
+        }
+    }
+
+    void SorteiaFruta(PlayerStats stats)
+    {
+        int sorteio = Random.Range(1, 6); // 1 a 5
+        FruitType frutaSorteada = (FruitType)sorteio;
+        fruitSystem.EquipFruit(frutaSorteada);
+    }
+}
