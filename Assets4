@@ -1,0 +1,51 @@
+using UnityEngine;
+
+public class PlayerStats : MonoBehaviour
+{
+    public int nivel = 1;
+    public int experiencia = 0;
+    public int moedas = 0;
+
+    public int inimigosDerrotados = 0;
+    public int metaMissao = 10;
+
+    void Update()
+    {
+        if (inimigosDerrotados >= metaMissao)
+        {
+            ConcluirMissao();
+        }
+    }
+
+    public void AdicionarMissaoDerrotar()
+    {
+        inimigosDerrotados = 0;
+        metaMissao = Random.Range(5, 15);
+    }
+
+    public void AdicionarExperiencia(int xp)
+    {
+        experiencia += xp;
+        if (experiencia >= nivel * 100)
+        {
+            experiencia = 0;
+            nivel++;
+            Debug.Log("Nível aumentado! Agora: " + nivel);
+        }
+    }
+
+    public void AdicionarMoedas(int valor)
+    {
+        moedas += valor;
+        Debug.Log("Ganhou moedas: " + valor);
+    }
+
+    void ConcluirMissao()
+    {
+        Debug.Log("Missão concluída!");
+        AdicionarMoedas(500);
+        AdicionarExperiencia(200);
+        inimigosDerrotados = 0;
+        metaMissao = Random.Range(5, 15);
+    }
+}
