@@ -1,0 +1,47 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TeleportSystem : MonoBehaviour
+{
+    public GameObject painelTeleportes;
+    public Button[] botoesIlhas;
+    public Transform[] destinosIlhas;
+    public int seaAtual = 1; // 1, 2 ou 3
+
+    private PlayerStats stats;
+
+    void Start()
+    {
+        painelTeleportes.SetActive(false);
+        stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+
+        AtualizarPainel();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T) && stats.nivel >= 700)
+        {
+            painelTeleportes.SetActive(!painelTeleportes.activeSelf);
+        }
+    }
+
+    void AtualizarPainel()
+    {
+        for (int i = 0; i < botoesIlhas.Length; i++)
+        {
+            int index = i;
+            botoesIlhas[i].onClick.RemoveAllListeners();
+            botoesIlhas[i].onClick.AddListener(() => TeleportarPara(destinosIlhas[index]));
+        }
+
+        // Você pode esconder botões que não fazem parte do Sea atual, se quiser
+        // Exemplo: se SeaAtual == 1, só mostrar ilhas 0 a 4
+    }
+
+    void TeleportarPara(Transform destino)
+    {
+        stats.transform.position = destino.position;
+        painelTeleportes.SetActive(false);
+    }
+}
