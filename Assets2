@@ -1,0 +1,63 @@
+using UnityEngine;
+
+public enum FruitType
+{
+    None,
+    Light,
+    Ice,
+    Flame,
+    Thunder,
+    Shadow
+}
+
+public class FruitSystem : MonoBehaviour
+{
+    public FruitType equippedFruit = FruitType.None;
+    public GameObject trident;
+    public GameObject lightFlightEffect;
+
+    void Update()
+    {
+        if (equippedFruit == FruitType.Light)
+        {
+            HandleLightFruit();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ManualAttack();
+        }
+    }
+
+    void HandleLightFruit()
+    {
+        // Pressione L para voar com Light Fruit
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+            lightFlightEffect.SetActive(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+            lightFlightEffect.SetActive(false);
+        }
+    }
+
+    void ManualAttack()
+    {
+        if (trident != null)
+        {
+            // Ataque com tridente
+            // Aqui você pode colocar uma animação ou instanciar uma hitbox
+            Debug.Log("Tridente usado para atacar!");
+        }
+    }
+
+    public void EquipFruit(FruitType fruit)
+    {
+        equippedFruit = fruit;
+        Debug.Log("Fruta equipada: " + fruit.ToString());
+    }
+}
