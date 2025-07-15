@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public int vida = 100;
+    public int xpRecompensa = 50;
+    public int moedasRecompensa = 200;
+    public bool isBoss = false;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerAttack"))
+        {
+            vida -= 25;
+
+            if (vida <= 0)
+            {
+                Morre(other);
+            }
+        }
+    }
+
+    void Morre(Collider player)
+    {
+        PlayerStats stats = player.GetComponentInParent<PlayerStats>();
+        if (stats != null)
+        {
+            stats.AdicionarExperiencia(xpRecompensa);
+            stats.AdicionarMoedas(moedasRecompensa);
+            stats.inimigosDerrotados++;
+        }
+
+        Destroy(gameObject);
+    }
+}
