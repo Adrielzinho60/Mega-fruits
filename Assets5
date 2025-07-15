@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class ChestSpawner : MonoBehaviour
+{
+    public GameObject chestPrefab;
+    public float respawnTime = 60f;
+
+    private GameObject currentChest;
+
+    void Start()
+    {
+        SpawnChest();
+    }
+
+    void SpawnChest()
+    {
+        if (currentChest == null)
+        {
+            currentChest = Instantiate(chestPrefab, transform.position, Quaternion.identity);
+            Chest chest = currentChest.GetComponent<Chest>();
+            chest.spawner = this;
+        }
+    }
+
+    public void DestruirEReiniciar()
+    {
+        currentChest = null;
+        Invoke(nameof(SpawnChest), respawnTime);
+    }
+}
